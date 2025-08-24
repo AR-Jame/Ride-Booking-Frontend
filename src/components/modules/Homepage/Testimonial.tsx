@@ -26,7 +26,7 @@ const testimonials = [
         testimonial: "The accessibility features and design system consistency are impressive. It's saved us countless hours in development time."
     },
     {
-        name: "Sarah Johnson",
+        name: "Sarah Johnsonn",
         role: "Product Manager",
         company: "Amazun",
         rating: 5,
@@ -34,7 +34,7 @@ const testimonials = [
         testimonial: "This library has completely transformed how we build our UI components. The attention to detail and smooth animations make our application stand out. Highly recommended!"
     },
     {
-        name: "John Doe",
+        name: "John Doee",
         role: "Software Engineer",
         company: "Goggle",
         rating: 4,
@@ -42,7 +42,7 @@ const testimonials = [
         testimonial: "The components are well documented and easy to customize. The code quality is top-notch and the support is excellent. I'm very happy with my purchase."
     },
     {
-        name: "Emily Chen",
+        name: "Emily Chenn",
         role: "UX Designer",
         company: "Microsift",
         rating: 5,

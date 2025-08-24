@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import {
@@ -16,6 +15,7 @@ import {
 import { Link } from "react-router";
 import Logo from "@/assets/icons/Logo";
 import { Menu } from "lucide-react";
+import { ModeToggle } from "./ModeToggle";
 
 interface MenuItem {
   title: string;
@@ -69,7 +69,8 @@ const Navbar = ({
             </div>
           </div>
           <div className="flex gap-2">
-            <Link to={'/login'}><Button>Login</Button></Link>
+            <Link to={'/login'}><Button className="cursor-pointer">Login</Button></Link>
+            <ModeToggle />
           </div>
         </nav>
 
@@ -97,7 +98,7 @@ const Navbar = ({
                 <div className="flex flex-col gap-6 p-4">
                   {menu.map((item) => renderMobileMenuItem(item))}
                   <div className="flex flex-col gap-3">
-                    <Link to={'/login'}>
+                    <Link className="cursor-pointer" to={'/login'}>
                       <Button className="w-full">Login</Button>
                     </Link>
                   </div>
@@ -114,13 +115,12 @@ const Navbar = ({
 const renderMenuItem = (item: MenuItem) => {
   return (
     <NavigationMenuItem key={item.title}>
-      <NavigationMenuLink
+
+      <Link
         className="bg-background hover:bg-muted hover:text-accent-foreground group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors"
-      >
-        <Link to={item.url}>
-          {item.title}
-        </Link>
-      </NavigationMenuLink>
+        to={item.url}>
+        {item.title}
+      </Link>
     </NavigationMenuItem>
   );
 };
