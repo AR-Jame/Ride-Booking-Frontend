@@ -1,8 +1,9 @@
-import { MoveRight, PhoneCall } from "lucide-react";
+import { CarFront, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import car from '@/assets/images/car.jpg'
 import driver from '@/assets/images/driver.jpg'
 import traveller from '@/assets/images/traveller.jpg'
+import { Link } from "react-router";
 
 function Hero() {
     return (
@@ -26,12 +27,14 @@ function Hero() {
                             </p>
                         </div>
                         <div className="flex flex-row gap-4">
-                            <Button size="lg" className="gap-4" variant="outline">
-                                Jump on a call <PhoneCall className="w-4 h-4" />
+                            <Button size="lg" className="gap-4 cursor-pointer" variant="outline">
+                                Post a RIDE <CarFront className="w-4 h-4" />
                             </Button>
-                            <Button size="lg" className="gap-4">
-                                Sign up here <MoveRight className="w-4 h-4" />
-                            </Button>
+                            <Link to={"/register"}>
+                                <Button size="lg" className="gap-4 cursor-pointer">
+                                    Sign up here <MoveRight className="w-4 h-4" />
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-8">

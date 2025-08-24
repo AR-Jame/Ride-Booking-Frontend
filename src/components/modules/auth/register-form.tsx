@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/Password";
-// import { useRegisterMutation } from "@/redux/features/auth/auth.api";
-// import { toast } from "sonner";
-// import config from "@/config";
+import { useRegisterMutation } from "@/redux/features/auth/auth.api";
+import { toast } from "sonner";
+import { Loader2Icon } from "lucide-react";
 
 const registrationSchema = z.object({
     name: z.string().min(3, { error: "Name is too short" }).max(50),
@@ -26,8 +27,8 @@ export default function RegisterForm({
     ...props
 }: React.ComponentProps<"div">) {
 
-    // const [register] = useRegisterMutation();
-    // const navigate = useNavigate();
+    const [register, { isLoading }] = useRegisterMutation();
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof registrationSchema>>({
         resolver: zodResolver(registrationSchema),
@@ -48,14 +49,19 @@ export default function RegisterForm({
 
         console.log(userInfo);
 
-        // try {
-        //     const result = await register(data)
-        //     console.log(result);
-        //     toast.success("User created successfully.");
-        //     navigate("/verify", { state: data.email });
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        try {
+            const result = await register(data).unwrap();
+            console.log(result);
+            if (result?.statusCode === 201) {
+                toast.success("User created successfully.");
+                navigate("/")
+            }
+            else {
+                toast.error(`Operation failed with statusCode: ${result?.data?.statusCode}, message: ${result?.data?.message}`)
+            }
+        } catch (error: any) {
+            toast.error(`Operation failed with statusCode: ${error?.data?.statusCode}, message: ${error?.data?.message}`)
+        }
     }
 
     return (
@@ -130,7 +136,18 @@ export default function RegisterForm({
                                 </FormItem>
                             )}
                         />
-                        <Button className="w-full" type="submit">Submit</Button>
+                        <Button
+                            className="w-full"
+                            type="submit"
+                            disabled={isLoading}
+                        >
+                            {
+                                isLoading ?
+                                    <Loader2Icon className="animate-spin">Please wait</Loader2Icon>
+                                    :
+                                    "Submit"
+                            }
+                        </Button>
                     </form>
                 </Form>
             </div>
