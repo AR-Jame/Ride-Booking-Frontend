@@ -110,4 +110,4 @@ const Features = () => {
     );
 };
 
-export { Features };
+export default Features;

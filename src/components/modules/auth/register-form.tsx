@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -10,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/Password";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
-import { Loader2Icon } from "lucide-react";
+import ButtonWithLoading from "@/components/ui/ButtonWIthLoading";
 
 const registrationSchema = z.object({
     name: z.string().min(3, { error: "Name is too short" }).max(50),
@@ -136,18 +135,12 @@ export default function RegisterForm({
                                 </FormItem>
                             )}
                         />
-                        <Button
-                            className="w-full"
+                        <ButtonWithLoading
+                            text="Register"
+                            fullWidth={true}
+                            isLoading={isLoading}
                             type="submit"
-                            disabled={isLoading}
-                        >
-                            {
-                                isLoading ?
-                                    <Loader2Icon className="animate-spin">Please wait</Loader2Icon>
-                                    :
-                                    "Submit"
-                            }
-                        </Button>
+                        />
                     </form>
                 </Form>
             </div>

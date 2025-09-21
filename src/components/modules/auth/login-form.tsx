@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/Password";
+import { toast } from "sonner";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import ButtonWithLoading from "@/components/ui/ButtonWIthLoading";
 
 
 const loginSchema = z.object({
@@ -18,6 +21,9 @@ export function LoginForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
+
+    const [login, { isLoading }] = useLoginMutation();
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -34,20 +40,20 @@ export function LoginForm({
         }
 
         console.log(userInfo);
-        // try {
-        //     const result = await login(userInfo).unwrap();
-        //     console.log(result);
-        //     toast.success("User logged in successfully.")
-        // } catch (error: any) {
-        //     console.log(error);
-        //     if (error.data.message === "Password does not matched.") {
-        //         toast.error("Password does not matched")
-        //     }
-        //     else if (error.data.message === "User is not verified.") {
-        //         navigate("/verify", { state: data.email })
-        //         toast.error(error.data.message)
-        //     }
-        // }
+        try {
+            const result = await login(userInfo).unwrap();
+            console.log(result);
+            if (result.success) {
+                toast.success("User logged in successfully.")
+                navigate("/")
+            } else {
+                toast.error("An Internal server error occured")
+            }
+        } catch (error: any) {
+            console.log(error);
+            toast.error(error?.data?.message || "An internal server error.")
+
+        }
     }
 
     return (
@@ -87,7 +93,12 @@ export function LoginForm({
                                 </FormItem>
                             )}
                         />
-                        <Button className="w-full" type="submit">Submit</Button>
+                        <ButtonWithLoading
+                            text="Login"
+                            fullWidth={true}
+                            isLoading={isLoading}
+                            type="submit"
+                        />
                     </form>
                 </Form>
             </div>
