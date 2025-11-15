@@ -9,18 +9,8 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Link } from "react-router";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
-import { useState } from "react";
 import { useAllUserQuery } from "@/redux/features/user/user.api";
 const AllUser = () => {
-    const [currentPage, setCurrentPage] = useState<number>(1);
     const { data } = useAllUserQuery(undefined);
     console.log(data);
     return (

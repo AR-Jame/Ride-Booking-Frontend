@@ -1,4 +1,4 @@
-const RideMap = ({ data }) => {
+const RideMap = () => {
     return (
         <div>
 

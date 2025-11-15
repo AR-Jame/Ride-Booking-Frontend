@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Car } from "lucide-react";
 
-const Driver = ({ driverData }) => {
+const Driver = ({ driverData }: any) => {
     console.log(driverData);
     return (
         <div className="p-5">
