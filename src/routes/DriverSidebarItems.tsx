@@ -1,3 +1,4 @@
+import DriverUpdateProfile from "@/pages/driver/DriverUpdateProfile";
 import { lazy } from "react";
 
 const RideRequests = lazy(() => import("@/pages/driver/RideRequests"))
@@ -28,6 +29,11 @@ export const driverSidebarItems = [
                 title: "Drive history",
                 url: "driver-history",
                 component: DriveHistory
+            },
+            {
+                title: "Your Profile",
+                url: "me",
+                component: DriverUpdateProfile
             },
         ],
     },

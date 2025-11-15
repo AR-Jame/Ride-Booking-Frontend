@@ -71,13 +71,14 @@ export default function Stepper({
         </div>
 
         {/* Next button */}
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-center gap-3">
           <Button
             onClick={() => nextStep && onNext(nextStep)}
             disabled={!nextStep}
           >
             Next Step
           </Button>
+          <Button variant={"destructive"} onClick={() => onNext("CANCELED")}>Cancel</Button>
         </div>
       </CardContent>
     </Card>

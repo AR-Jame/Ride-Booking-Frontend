@@ -1,13 +1,14 @@
-import AllUser from "@/pages/admin/AllUser";
+import AllRides from "@/pages/admin/AllRides";
+import AllUsers from "@/pages/admin/AllUser";
 
 export const adminSidebarItems = [
     {
         title: "User management",
         items: [
             {
-                title: "All users",
+                title: "All User",
                 url: "/admin/users",
-                component: AllUser
+                component: AllUsers
             },
         ],
     },
@@ -17,7 +18,7 @@ export const adminSidebarItems = [
             {
                 title: "All rides",
                 url: "/admin/rides",
-                // component: 
+                component: AllRides
             },
         ],
     },

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,12 +13,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Logo from "@/assets/icons/Logo";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
-import { useProfileQuery } from "@/redux/features/auth/auth.api";
+import { useLogoutMutation, useProfileQuery } from "@/redux/features/auth/auth.api";
 import type { TRole } from "@/types";
+import { toast } from "sonner";
 
 interface MenuItem {
   id: number;
@@ -90,7 +92,25 @@ const Navbar = ({
 }: Navbar1Props) => {
 
   const { data } = useProfileQuery(undefined);
-  console.log(data);
+  const [logout] = useLogoutMutation();
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    try {
+      const result = await logout(null).unwrap();
+      console.log(result);
+      if (result.success) {
+        toast.success("User logout successfully.")
+        navigate("/")
+      } else {
+        toast.error("An Internal server error occured")
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error?.data?.message || "An internal server error.")
+
+    }
+  }
 
   return (
     <section className="py-4">
@@ -114,10 +134,10 @@ const Navbar = ({
           <div className="flex gap-2">
             {
               data?.success ?
-                <Button>Logout</Button>
+                <Button className=" cursor-pointer" onClick={handleLogOut}>Logout</Button>
                 :
                 <Link className="cursor-pointer" to={'/login'}>
-                  <Button>Login</Button>
+                  <Button className="">Login</Button>
                 </Link>
             }
             <ModeToggle />
@@ -151,7 +171,7 @@ const Navbar = ({
                   <div className="flex flex-col gap-3">
                     {
                       data?.success ?
-                        <Button className="w-full">Logout</Button>
+                        <Button className="w-full cursor-pointer" onClick={handleLogOut}>Logout</Button>
                         :
                         <Link className="cursor-pointer" to={'/login'}>
                           <Button className="w-full">Login</Button>

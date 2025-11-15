@@ -27,7 +27,7 @@ const DriveHistory = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const { data } = useGetRidesQuery({ fields: "_id,createdAt,currentStatus,distance,fare", page: currentPage });
 
-    console.log(currentPage);
+    console.log(data);
 
     return (
         <div>

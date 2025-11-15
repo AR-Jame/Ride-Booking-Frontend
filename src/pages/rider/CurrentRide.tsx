@@ -10,6 +10,7 @@ const CurrentRide = () => {
             <h1 className="h-full flex justify-center items-center font-semibold text-6xl">You currently don't in any ride.</h1>
         )
     }
+    console.log(data);
     return (
         <div className="w-full h-full grid grid-cols-3">
             <div className="border h-full w-full col-span-2">
@@ -25,7 +26,7 @@ const CurrentRide = () => {
                     data?.data?.driver ?
                         < Driver driverData={data?.data?.driver} />
                         :
-                        <h5 className="text-5xl font-medium text-center">No driver selected.</h5>
+                        <h5 className="text-5xl font-medium text-center">No driver select this ride till now.</h5>
                 }
             </div>
         </div>

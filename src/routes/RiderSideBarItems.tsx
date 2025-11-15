@@ -1,8 +1,8 @@
+import RiderProfileManagement from "@/pages/rider/RiderProfileManagement";
 import { lazy } from "react";
 
 const Rides = lazy(() => import("@/pages/rider/Rides"))
 const RideRequest = lazy(() => import("@/pages/rider/RideRequest"))
-const Profile = lazy(() => import("@/pages/rider/Profile"))
 const CurrentRide = lazy(() => import("@/pages/rider/CurrentRide"))
 
 
@@ -33,7 +33,7 @@ export const RiderSideBarItems = [
             {
                 title: "Your  profile",
                 url: "me",
-                component: Profile
+                component: RiderProfileManagement
             }
 
         ]

@@ -18,7 +18,7 @@ const CurrentRide = () => {
 
     console.log(data);
     const handleNext = async (next: string) => {
-        console.log(next);
+        console.log(next, "From frontend");
         try {
             const res = await updateRideStatus({ status: next, id: data?.data?._id })
             console.log(res);

@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Navigate to={"/admin/dashboard"} />
+                element: <Navigate to={"/admin/rides"} />
             },
 
             ...generateRoutes(adminSidebarItems)
